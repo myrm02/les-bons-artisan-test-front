@@ -1,0 +1,96 @@
+.home-main-content {
+    display: flex;
+    gap: 24px;
+}
+
+.articles-section {
+    margin-left: 20px;
+    margin-top: 30px;
+    width: 70%
+}
+
+.form-submission-section {
+    left: 0;
+    right: 0;
+    margin-top: 30px;
+}
+
+.form-submission-section form {
+    border: 2px solid;
+    padding: 15px 50px 50px 50px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 9px;
+}
+
+.form-submission-section form h2 {
+    font-weight: bolder;
+}
+
+.form-submission-section form .line {
+    display: flex;
+    width: 70%;
+}
+
+.form-submission-section form .line hr {
+    flex: 1;
+    border: 2px solid black;
+}
+
+.form-submission-section form span p {
+    font-weight: bold;
+}
+
+.form-submission-section form span input {
+    width: 100%;
+    border: 0.5px solid black;
+    border-radius: 3px;
+}
+
+.form-submission-section form p {
+    font-weight: bold;
+}
+
+.form-submission-section form textarea {
+    width: 100%;
+    height: 130px;
+    border: 0.5px solid black;
+    border-radius: 3px;
+}
+
+.submit-button {
+    margin-top: 40px;
+}
+
+.article{
+    border: 7px solid rgb(73, 73, 73);
+    border-radius: 5px;
+}
+
+.article-content {
+    display: flex;
+    padding: 10px;
+}
+
+.image-and-price {
+    position: relative;
+    width: 150px;
+}
+
+.image-and-price img {
+    width: 100%;
+    height: 100%;
+}
+
+.image-and-price span {
+    position: absolute;
+    right: 0;
+    left: 0; 
+    bottom: 0;
+    font-weight: bold;
+}
+
+.title-and-details {
+    margin-left: auto;
+    margin-right: auto;
+}
