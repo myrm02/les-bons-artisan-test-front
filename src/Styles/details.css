@@ -1,0 +1,146 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    padding: 45px;
+}
+
+h2 {
+    font-weight: bolder;
+}
+
+h2 .line {
+    display: flex;
+    width: 70%;
+}
+
+h2 .line hr {
+    flex: 1;
+    border: 2px solid black;
+}
+
+.return-button-section {
+    padding-bottom: 45px;
+    margin-left: 75px;
+}
+
+.article-section {
+    display: flex;
+    justify-content: center;
+    margin-left: 60px;
+    margin-right: 60px;
+    gap: 3px
+}
+
+.article-section img {
+    display: flex;
+    width: 350px;
+    height: 150px;;
+}
+
+.details-content {
+    width: 100%;
+}
+
+.general-infos {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.general-infos p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #aaa9a9;
+}
+
+.general-infos span {
+    font-weight: bold;
+}
+
+.specific-infos .cart-redirection {
+    display: grid;
+    place-items: end;  
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 27px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+    color: #635d5d;
+    font-weight: 900;
+}
+
+.comments-prompt-section {
+    display: flex;
+}
+
+.comments-prompt-section-content {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    line-height: 30.6px;
+    gap: 9px
+}
+
+/* .user-profil-section {
+    padding: 7px;
+} */
+
+.user-profil {
+    display: flex;
+    margin: auto;
+    width:30px;
+	height:30px;
+	-webkit-border-radius:100px;
+	-moz-border-radius:100px;
+	-o-border-radius:100px;
+	border-radius:100px;
+}
+  
+.comment-submission-section-content {
+    display: flex;
+    margin: auto;
+    width: 100%;
+}
+
+.comments-publication span {
+    display: grid;
+    place-items: end;
+    cursor: pointer;
+}
+
+.comment-list {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding-top: 14px;
+    padding-bottom: 30px;
+}
+
+.comment-list section {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.username {
+    display: flex;
+    justify-content: center;
+    color: #8c8585;
+    font-weight: bolder;
+}
+
+.commentary {
+    display: flex;
+    justify-content: center;
+}
+
+.rating-title {
+    font-weight: bolder;
+}

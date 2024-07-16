@@ -1,0 +1,25 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+    margin-bottom: 0px;
+}
+
+h1 span {
+    color: grey;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.return-button {
+    margin-left: 190px;
+    margin-bottom: 0px;
+}
+
+.product-form {
+    margin-top: 0px;
+}
