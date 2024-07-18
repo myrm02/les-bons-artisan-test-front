@@ -63,3 +63,15 @@ header nav .header-links ul .cart {
   position: absolute;
   color: white;
 }
+
+.error {
+  border-color: red;
+  border-width: 1px;
+}
+
+.loading{
+  display: flex;
+  justify-content: center;
+  padding-top: 150px;
+  padding-bottom: 150px;
+}

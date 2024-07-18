@@ -8,6 +8,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { alpha, styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
+import { useState } from "react"
+import { useUpdateProductsMutation } from "../Services/API"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -17,11 +19,16 @@ export default function UpdateForm(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   };
+
+  let [ updateProduct, { isLoading } ] = useUpdateProductsMutation()
+
+  const [name, setName] = useState(props.name)
+  const [type, setType] = useState(props.type)
+  const [price, setPrice] = useState(props.price)
+  const [warranty, setWarranty] = useState(props.warranty)
+
+  const [available, setAvailability] = useState(props.availability)
 
   const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -75,33 +82,36 @@ export default function UpdateForm(props) {
           }}
         >
 
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate>
             <Grid container spacing={2}>
                     <Grid item xs={12}>
                 <CssTextField
-                  required
                   fullWidth
-                  id="email"
+                  defaultValue={name}
+                  onChange={(event) => setName(event.target.value)}
+                  id="name"
                   label="Nom"
-                  name="email"
-                  autoComplete="email"
+                  autoComplete="name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <CssTextField
-                  required
                   fullWidth
-                  name="password"
+                  defaultValue={type}
+                  onChange={(event) => setType(event.target.value)}
                   label="Type de produit"
-                  id="password"
-                  autoComplete="new-password"
+                  id="type"
+                  autoComplete="type"
                 />
               </Grid>
               <Grid item xs={12} sm={4}>
               {/* <TextField id="outlined-basic" label="Outlined" variant="outlined" fullWidth size='small' value={name} onChange={(event) => {setName(event.target.value)}  }/> */}
                 <CssTextField id="outlined-adornment-amount"
-                    label="Prix" 
+                    label="Prix"
                     fullWidth
+                    defaultValue={price}
+                    onChange={(event) => setPrice(Number(event.target.value))}
+                    autoComplete="productPrice"
                     type='number'
                     InputProps={{
                         endAdornment: <InputAdornment position="end">€</InputAdornment>,
@@ -112,6 +122,9 @@ export default function UpdateForm(props) {
                 <CssTextField id="outlined-adornment-amount"
                     label="Durée de la garantie" 
                     fullWidth
+                    defaultValue={warranty}
+                    autoComplete="productWarranty"
+                    onChange={(event) => setWarranty(event.target.value === null ? Number(event.target.value) : 0)}
                     type='number'
                     helperText="En nombre d'années"
                 />
@@ -121,10 +134,11 @@ export default function UpdateForm(props) {
                     select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
+                    value={available}
                     label="Disponibilité"
                     defaultValue="En stock"
-                    // onChange={handleChange}
+                    autoComplete="availability"
+                    onChange={(event) => setAvailability(event.target.value)}
                     fullWidth
                     SelectProps={{
                         native: true,
@@ -145,15 +159,18 @@ export default function UpdateForm(props) {
                     variant="contained"
                     sx={{ mt: -1.6 }}
                     style={{color: 'white', fontWeight: "bold"}}
-                    onClick={props.update()}
+                    onClick={() => updateProduct({id: props.id, body: {
+                      name: name,
+                      type: type,
+                      price: price,
+                      warranty_years: warranty,
+                      available: available
+                  }})}
                 >
                     Enregistrer les modifications
                 </UpdateButton>
                </Grid>
             </Grid>
-            {/* <div className="remove-items-button">
-                <Button label="Enregistrer les modifications" clickAction={() => {removeAllFromCart()}}/>
-            </div> */}
             
           </Box>
         </Box>
