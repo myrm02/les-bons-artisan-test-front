@@ -6,8 +6,8 @@ const LoaderDiv = styled.div`
     border-width: 4px; 
     border-color: currentColor; 
     border-style: solid; 
-    width: 2rem; 
-    height: 2rem; 
+    width: 200px; 
+    height: 200px; 
     animation: spin 1s linear infinite;
 
     @keyframes spin {

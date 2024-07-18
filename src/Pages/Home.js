@@ -1,5 +1,5 @@
 import '../Styles/home.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCreateArticleMutation, useGetArticlesQuery } from "../Services/API"
 import Header from "../Components/Header"
 import Loading from '../Components/Loading';
@@ -16,28 +16,14 @@ export default function () {
 
     const [title, setTitle] = useState("")
     const [type, setType] = useState("")
-    const [price, setPrice] = useState(0)
-    const [warranty, setWarranty] = useState(0)
+    const [price, setPrice] = useState(null)
+    const [warranty, setWarranty] = useState(null)
 
-    const create = (createDataForm) => {
-
-        fetch(`http://localhost:3000/products/`, {
-        
-            method: "POST",
-
-            body: JSON.stringify(createDataForm)
-
-        }).then((response) => {
-
-            console.log("Create POST response", response.data);
-
-        })
-        
-    }
+    const [error, setError] = useState(false)
 
     return <div><Header />
     {
-            isFetching ? <Loading /> : <div className="home-main-content">
+            isFetching ? <div className='loading'><Loading /></div> : <div className="home-main-content">
                <br />
 
                 <div className="articles-section">
@@ -50,26 +36,30 @@ export default function () {
                     <div className='line'>
                         <hr />
                     </div> 
-                    <span>
-                        <p>Nom du produit:</p><TextField placeholder="Entrer le nom du produit" size='small' fullWidth onChange={(event) => setTitle(event.target.value)}/></span>
-                    <span><p>Type du produit:</p> <TextField placeholder="Entrer le type ou catégorie du produit" size='small' fullWidth onChange={(event) => setType(event.target.value)}/></span>
-                    <span><p>Prix du produit:</p> <TextField placeholder="Entrer son prix" size='small' fullWidth onChange={(event) => setPrice(Number(event.target.value))}/></span>
-                    <span><p>Garantie du produit:</p> <TextField placeholder="Entrer la durée de la garantie (facultatif)" size='small' fullWidth onChange={(event) => setWarranty(Number(event.target.value))}/></span>
+                    <span className={error ? 'error' : ''}>
+                        <p>Nom du produit:</p><TextField placeholder="Entrer le nom du produit" size='small' fullWidth onChange={(event) => setTitle(event.target.value)}/>{error ? <span style={{color: 'red', fontSize: '14px'}}>Cette information est requise</span> : <></>}</span>
+                    <span><p>Type du produit:</p> <TextField placeholder="Entrer le type ou catégorie du produit" size='small' fullWidth onChange={(event) => setType(event.target.value)}/>{error ? <span style={{color: 'red', fontSize: '14px'}}>Cette information est requise</span> : <></>}</span>
+                    <span><p>Prix du produit:</p> <TextField placeholder="Entrer son prix" size='small' fullWidth onChange={(event) => setPrice(Number(event.target.value))}/>{error ? <span style={{color: 'red', fontSize: '14px'}}>Cette information est requise</span> : <></>}</span>
+                    <span><p>Garantie du produit:</p> <TextField placeholder="Entrer la durée de la garantie (facultatif)" size='small' fullWidth onChange={(event) => event.target.value === "" ? setWarranty(0) : setWarranty(Number(event.target.value))}/></span>
                     <p>Description:</p>
-                    <TextareaAutosize placeholder="Entrer la description du produit" style={{minHeight: '50px'}}/>
+                    <TextareaAutosize placeholder="Entrer la description du produit (facultatif)" style={{minHeight: '50px'}}/>
 
                     <div className='submit-button'>
                         <Button 
                             variant="contained"
                             style={{color: 'white', backgroundColor: grey[700], fontWeight: "bold"}}
                             onClick={() => {
-                            create({
-                                name: title,
-                                type: type,
-                                price: price,
-                                warranty_years: warranty,
-                                available: true
-                            })
+                                if(title === "" || type === "" || price === null || warranty === null) {
+                                    setError(true)
+                                } else {
+                                    createArticle({
+                                        name: title,
+                                        type: type,
+                                        price: price,
+                                        warranty_years: warranty,
+                                        available: true
+                                    })
+                                }
                         }}>Créer un article
                         </Button>
                     </div>
@@ -86,23 +76,6 @@ function ArticlesList() {
     let { data, isFetching } = useGetArticlesQuery()
 
     console.log("Data", data)
-
-    // const [products, setProducts] = useState([])
-
-    // const fetchProducts = () => {
-
-    //     fetch(`https://les-bons-artisan-test-back.onrender.com/products`).then((response) => {
-
-    //         console.log("GET Products response", response);
-
-    //         setProducts(response.data)
-    //     })
-        
-    // }
-
-    // useEffect(() => {
-    //     fetchProducts()
-    // }, [])
 
     return <><div className='article'>
                 <Cards products={data}/>

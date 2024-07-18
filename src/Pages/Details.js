@@ -1,6 +1,6 @@
 import '../Styles/details.css';
 import { useState, useEffect } from "react"
-import { useGetArticlesQuery } from "../Services/API"
+import { useGetArticlesQuery, useUpdateProductsMutation } from "../Services/API"
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../Providers/CartContext";
 import Header from "../Components/Header"
@@ -15,6 +15,7 @@ function Details() {
     const [rating, setRating] = useState(false)
 
     let { data, isFetching, isLoading: dataIsLoading } = useGetArticlesQuery()
+    let [ publishRating, { isLoading } ] = useUpdateProductsMutation()
     let { addToCart } = useCart()
     let { id } = useParams()
 
@@ -28,24 +29,6 @@ function Details() {
 
     let article = data.filter((article) => article._id == id)[0]
     console.log("Data", article)
-
-    const updateRating = (id) => {
-
-        fetch(`http://localhost:3000/products/${id}`, {
-        
-            method: "PUT",
-
-            body: JSON.stringify({
-                rating: rating
-            })
-
-        }).then((response) => {
-
-            console.log("Update PUT response", response.data);
-
-        })
-        
-    }
 
     const RatingField = styled(TextField)({
         '& label.Mui-focused': {
@@ -125,7 +108,9 @@ function Details() {
                                     </div>
 
                                     <div className='comment-publication'>
-                                        <span onClick={updateRating(article._id)}>
+                                        <span onClick={() => publishRating({id: article._id, body: {
+                                            rating: rating
+                                        }})}>
                                             Publier
                                         </span>
                                     </div>
